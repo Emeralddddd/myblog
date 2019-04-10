@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block header %}
+    <header class="masthead" style="background-image: url({{ header.img }})">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>{{ header.title }}</h1>
+                        <span class="subheading">{{ header.subTitle }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% if posts %}
+                    {% for post in posts %}
+                        <div class="post-preview">
+                            <a href="post.html">
+                                <h2 class="post-title">
+                                </h2>
+                                <h3 class="post-subtitle">
+                                    {{ post.body }}
+                                </h3>
+                            </a>
+                            <p class="post-meta">Posted by
+                                <a href="#">{{ post.user_id }}</a>
+                                on {{ post.timestamp }}</p>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Pager -->
+                <div class="clearfix">
+                    <a class="btn btn-primary float-right" href="/postlist">更多文章 &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
