@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta name="description" content="这是一款 HTML5 开发的 CXK 打篮球小游戏，无聊的时候玩玩吧！">
+    <meta name="keywords" content="CXK,打篮球,游戏,弹球,篮球,HTML5,开源,caixukun,CXK出来打球,你打篮球像CXK">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css?s=2">
+    <title>CXK 打篮球 - CXK，出来打球！CXK游戏_你打游戏像CXK_篮球打CXK</title>
+    <!--<link rel="stylesheet" href="css/common.css">-->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // 百度统计代码
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?5adedb455da362ba577abe2fd8e1095d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="/static/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/clean-blog.css" rel="stylesheet">
+    <link href="/static/css/box.css" rel="stylesheet">
+    <link href="/static/css/GalMenu.css" rel="stylesheet">
+</head>
+<body>
+<div class="GalMenu GalDropDown" style="top: 193px; left: 761px; display: none; opacity: 1;">
+    <div class="circle" id="gal">
+        <div class="ring">
+            <a href="#" title="" class="menuItem" style="left: 50%; top: 15%;">首页</a>
+            <a href="#" title="" class="menuItem" style="left: 80.3109%; top: 32.5%;">博客</a>
+            <a href="#" title="" class="menuItem" style="left: 80.3109%; top: 67.5%;">项目</a>
+            <a href="#" title="" class="menuItem" style="left: 50%; top: 85%;">综合</a>
+            <a href="#" title="" class="menuItem" style="left: 19.6891%; top: 67.5%;">杂项</a>
+            <a href="#" title="" class="menuItem" style="left: 19.6891%; top: 32.5%;">留言</a></div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        {% if current_user.is_anonymous %}
+        {% else %}
+            <a class="navbar-brand" href="/user">我的主页</a>
+        {% endif %}
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/newpost">新建文章</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/postlist">全部文章</a>
+                </li>
+                <li class="nav-item">
+                    {% if current_user.is_anonymous %}
+                        <a class="nav-link" href="login">登陆</a>
+                    {% else %}
+                        <a class="nav-link" href="logout">登出</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<header class="masthead" style="background-image: url('https://source.unsplash.com/random/400*300');z-index: -2">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>鸡你太美</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h2>CXK 打篮球</h2>
+            <p>CXK，出来打球！</p>
+            <hr>
+            <center>
+                <p>
+                <div class="input-group">
+                    <select class="form-control" id="ballspeedset">
+                        <option value="2">简单难度（Speed 2）</option>
+                        <option value="3" selected>普通难度（Speed 3）</option>
+                        <option value="5">困难模式（Speed 5）</option>
+                        <option value="7">极限模式（Speed 7）</option>
+                        <option value="9">非人类（Speed 9）</option>
+                    </select>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-danger" onclick="window.startGame()">开始游戏</button>
+                        <button type="button" class="btn btn-warning" onclick="window.pauseGame()">暂停游戏</button>
+                        <button type="button" class="btn btn-success" onclick="window.nextGame()">下个关卡</button>
+                    </div>
+                </div>
+                </p>
+            </center>
+            <center id="cdiv" style="width: 100%;">
+                <p>
+                    <canvas id="canvas" style="width: 100%;height: 563px;"></canvas>
+                </p>
+            </center>
+            <hr>
+            <h3>游戏说明</h3>
+            <p>使用方向键控制 CXK 左右移动，使用回车让 CXK 发球，按 P 暂停游戏，通关后按 N 进入下一关</p>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href=#>
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href=#>
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href='https://github.com/Emeralddddd'>
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">本站总访问量<span id="busuanzi_value_site_pv">次</span></p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<!-- 图片预缓存 -->
+<img src="/static/images/ball.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/ballshadow.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/paddle_1.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/paddle_2.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/paddle2_1.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/paddle2_2.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/paddle3_1.png" style="width: 0px;height: 0px;"/>
+<img src="/static/images/paddle3_2.png" style="width: 0px;height: 0px;"/>
+
+<audio src="/static/1.mp3" style="width: 0px;height: 0px;border: 0px;" id="audio" loop="loop"></audio>
+<script src="../static/js/common.js?s=4"></script>
+<script src="../static/js/scene.js?s=4"></script>
+<script src="../static/js/game.js?s=4"></script>
+<script src="../static/js/main.js?s=4"></script>
+<script>
+    var clientWidth = document.body.clientWidth;
+    var cxk_body = 1;
+    var move_way = 1;
+    canvas.width = canvas.clientWidth;
+    canvas.style.width = canvas.clientWidth + "px";
+    cdiv.style.width = cdiv.clientWidth + "px";
+    canvas.height = canvas.clientWidth / 1000 * 563;
+    canvas.style.height = canvas.clientWidth / 1000 * 563 + "px";
+    cdiv.style.height = cdiv.clientWidth / 1000 * 563 + "px";
+    if (canvas.width < 936) {
+        canvas.width = 936;
+        canvas.height = 936 / 1000 * 563;
+        canvas.setAttribute("style", "");
+        canvas.style.zoom = (cdiv.clientWidth / 936);
+    } else {
+
+    }
+    window.startGame = function () {
+         $("#audio").attr("src", "/static/1.mp3");
+         audio.play();
+        window.cacheBallSpeed = parseInt($("#ballspeedset").val());
+        $("#ballspeedset").attr("disabled", "disabled");
+        _main.start();
+        setInterval(function () {
+            if (cxk_body == 1) {
+                _main.paddle.image.src = "/static/images/paddle2_" + move_way + ".png";
+                cxk_body = 2;
+            } else if (cxk_body == 2) {
+                _main.paddle.image.src = "/static/images/paddle3_" + move_way + ".png";
+                cxk_body = 3;
+            } else {
+                _main.paddle.image.src = "/static/images/paddle_" + move_way + ".png";
+                cxk_body = 1;
+            }
+        }, 200);
+        _main.ballshadow.y = 545;
+        setInterval(function () {
+            if (_main.ball.y < 530) {
+                _main.ballshadow.x = _main.ball.x;
+                _main.ballshadow.y = 545;
+            } else {
+                _main.ballshadow.x = _main.ball.x;
+                _main.ballshadow.y = _main.ball.y + 20;
+            }
+        }, 10);
+    }
+</script>
+<!-- Bootstrap core JavaScript -->
+<script src="/static/vendor/jquery/jquery.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="/static/js/clean-blog.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="text/javascript" src="/static/js/GalMenu.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('body').GalMenu({
+            'menu': 'GalDropDown'
+        })
+    });
+</script>
+<script type="text/javascript">var items = document.querySelectorAll('.menuItem');
+for (var i = 0,
+         l = items.length; i < l; i++) {
+    items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+    items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+}</script>
+</html>

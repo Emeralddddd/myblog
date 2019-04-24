@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block header %}
+    <header class="masthead" style="background-image: url('https://source.unsplash.com/random/400*300')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>{{ u.username }}</h1>
+                        <h2></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h3>用户名:<bold>{{ u.username }}</bold></h3>
+                    <h3>ID:<bold>{{ u.id }}</bold></h3>
+                    <h3><a href="/postlist?id={{ u.id }}">点击这里查看文章吧！</a></h3>
+                </div>
+            </div>
+        </div>
+
+    </article>
+{% endblock %}

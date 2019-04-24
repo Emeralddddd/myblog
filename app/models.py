@@ -6,6 +6,7 @@ from app import login
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,TextAreaField
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
+from app import CKEditorField
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,21 +25,36 @@ class User(UserMixin,db.Model):
         return check_password_hash(self.password_hash, password)
 
     def my_posts(self):
-        return Post.query.filter(Post.user_id==3).order_by(Post.timestamp.desc())
+        return Post.query.filter(Post.user_id==self.id).order_by(Post.timestamp.desc())
+
+posttags = db.Table('posttags',db.Column('tagid',db.Integer,db.ForeignKey('tag.id')),db.Column('postid',db.Integer,db.ForeignKey('post.id')))
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
+    title = db.Column(db.String(100))
+    abs = db.Column(db.String(100))
+    body = db.Column(db.String(3000))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    tags = db.relationship('Tag',secondary=posttags,backref=db.backref('post',lazy='dynamic'),lazy='dynamic')
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
+class Tag(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(100))
+
 class PostForm(FlaskForm):
+    title = TextAreaField('Ttile',validators=[DataRequired()])
+    abs =TextAreaField('Abstract')
     post = TextAreaField('Say something', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class PostForm1(FlaskForm):
+    title = StringField('标题')
+    abs = StringField('副标题')
+    body = CKEditorField('正文')
+    submit = SubmitField('Submit')
 
 class Header:
     def __init__(self, img, title, subTtile):

@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block header %}
+    <header class="masthead" style="background-image: url('https://source.unsplash.com/random/400*300');z-index: -2">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1></h1>
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="demo">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="box">
+                        <img src="/static/img/userpage/newpost.jpg" alt="">
+                        <div class="box-content">
+                            <h3 class="title">新建文章</h3>
+                            <span class="post">到这里写点什么吧</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="/newpost"><i class="fa fa-link"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="box">
+                        <img src="/static/img/userpage/mypost.jpg" alt="">
+                        <div class="box-content">
+                            <h3 class="title">我的文章</h3>
+                            <span class="post">看看之前的文章</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="/postlist?user={{ current_user.id }}"><i class="fa fa-link"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="box">
+                        <img src="/static/img/userpage/profile.jpg" alt="">
+                        <div class="box-content">
+                            <h3 class="title">个人资料</h3>
+                            <span class="post">到这里查看个人资料吧</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="/profile"><i class="fa fa-link"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="demo">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="box">
+                        <img src="/static/img/1.jpg" alt="">
+                        <div class="box-content">
+                            <h3 class="title">Coming soon</h3>
+                            <span class="post">web developer</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="#"><i class="fa fa-search"></i></a></li>
+                            <li><a href="#"><i class="fa fa-link"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="box">
+                        <img src="/static/img/2.jpg" alt="">
+                        <div class="box-content">
+                            <h3 class="title">Coming soon</h3>
+                            <span class="post">web designer</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="#"><i class="fa fa-search"></i></a></li>
+                            <li><a href="#"><i class="fa fa-link"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="box">
+                        <img src="/static/img/3.jpg" alt="">
+                        <div class="box-content">
+                            <h3 class="title">Coming soon</h3>
+                            <span class="post">web developer</span>
+                        </div>
+                        <ul class="icon">
+                            <li><a href="#"><i class="fa fa-search"></i></a></li>
+                            <li><a href="#"><i class="fa fa-link"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

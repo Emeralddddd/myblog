@@ -1,20 +1,77 @@
 {% extends 'layout.html' %}
+{% block header %}
+    <header class="masthead" style="background-image: url({{ header.img }});z-index: -2">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>{{ current_user.username }}</h1>
+                        <span class="subheading">Love U</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4) }}<br>
-            {% for error in form.post.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
+    {#    <form action="" method="post">#}
+    {#        {{ form.hidden_tag() }}#}
+    {#        <p>#}
+    {#            {{ form.title.label }}<br>#}
+    {#            {{ form.title(cols=128, rows=2) }}<br>#}
+    {#            {% for error in form.title.errors %}#}
+    {#                <span style="color: red;">[{{ error }}]</span>#}
+    {#            {% endfor %}#}
+    {#        </p>#}
+    {#        <p>#}
+    {#            {{ form.abs.label }}<br>#}
+    {#            {{ form.abs(cols=128, rows=2) }}<br>#}
+    {#            {% for error in form.abs.errors %}#}
+    {#                <span style="color: red;">[{{ error }}]</span>#}
+    {#            {% endfor %}#}
+    {#        </p>#}
+    {#        <p>#}
+    {#            {{ form.post.label }}<br>#}
+    {#            {{ form.post(cols=128, rows=8) }}<br>#}
+    {#            {% for error in form.post.errors %}#}
+    {#                <span style="color: red;">[{{ error }}]</span>#}
+    {#            {% endfor %}#}
+    {#        </p>#}
+    {#        <p>{{ form.submit() }}</p>#}
+    {#    </form>#}
+    <form name="newPost" action="{{ url_for('newpost') }}" method="post" id="postForm" novalidate>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <label>标题</label>
+                <input type="text" class="form-control" placeholder="标题" id="Title" name="Title" required
+                       data-validation-required-message="Please enter your title.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <label>标签</label>
+                <input type="text" class="form-control" placeholder="副标题" id="subTitle" name="subTitle" required
+                       data-validation-required-message="Please enter your subtitle.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <label>正文</label>
+                {{ ckeditor.create() }}
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <br>
+        <div id="success"></div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+        </div>
     </form>
-    {% for post in posts %}
-        <p>
-            {{ post.author.username }} says: <b>{{ post.body }}</b>
-        </p>
-    {% endfor %}
+{% endblock %}
+{% block js %}
+    {{ ckeditor.load() }}
+    {{ ckeditor.config() }}
 {% endblock %}

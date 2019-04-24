@@ -1,4 +1,19 @@
 {% extends "layout.html" %}
+{% block header %}
+    <header class="masthead" style="background-image:url('https://source.unsplash.com/random/400*300');z-index: -2">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>在此登陆</h1>
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -27,7 +42,8 @@
                     <br>
                     <div id="success"></div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+                        <button type="submit" class="btn btn-primary" id="sendMessageButton">登陆</button>
+                        <a class="btn btn-primary" href="/register">注册</a>
                     </div>
                 </form>
             </div>

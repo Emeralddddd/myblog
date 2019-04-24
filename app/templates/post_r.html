@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block header %}
+    <header class="masthead" style="background-image: url({{ header.img }})">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>{{ post.title }}</h1>
+                        <br>
+                        {% for tag in post.tags %}
+                            <a style="color: white" href="/postlist?tag={{ tag.name }}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    {{ post.body|safe }}
+                    <br>
+                    <span class="subheading" style="font-size: small">本文总阅读量<span
+                            id="busuanzi_value_page_pv"></span>次</span>
+                </div>
+            </div>
+        </div>
+
+    </article>
+{% endblock %}

@@ -2,13 +2,21 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>{{ title }}</title>
+    <style>
+        canvas {
+            margin: 0;
+            padding: 0;
+            display: block; /*  ˉ\_(ツ)_/ˉ  */
+            touch-action: none;
+            z-index: -1;
+            position: fixed;
+        }
+    </style>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -22,12 +30,28 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/css/clean-blog.css" rel="stylesheet">
-
+    <link href="/static/css/box.css" rel="stylesheet">
+    <link href="/static/css/GalMenu.css" rel="stylesheet">
 </head>
 <body>
+<div class="GalMenu GalDropDown" style="top: 193px; left: 761px; display: none; opacity: 1;">
+    <div class="circle" id="gal">
+        <div class="ring">
+            <a href="/index" title="" class="menuItem" style="left: 50%; top: 15%;">首页</a>
+            <a href="/myhome" title="" class="menuItem" style="left: 80.3109%; top: 32.5%;">主页</a>
+            <a href="/postlist" title="" class="menuItem" style="left: 80.3109%; top: 67.5%;">文章</a>
+            <a href="https://github.com/Emeralddddd/myblog" title="" class="menuItem" style="left: 50%; top: 85%;">项目</a>
+            <a href="/ball" title="" class="menuItem" style="left: 19.6891%; top: 67.5%;">篮球</a>
+            <a href="/ball" title="" class="menuItem" style="left: 19.6891%; top: 32.5%;">🐔</a></div>
+    </div>
+</div>
+<canvas></canvas>
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        {% if current_user.is_anonymous %}
+        {% else %}
+            <a class="navbar-brand" href="/user">我的主页</a>
+        {% endif %}
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -37,19 +61,19 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/index">Home</a>
+                    <a class="nav-link" href="/index">首页</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/newpost">New post</a>
+                    <a class="nav-link" href="/newpost">新建文章</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/post">Sample Post</a>
+                    <a class="nav-link" href="/postlist">全部文章</a>
                 </li>
                 <li class="nav-item">
                     {% if current_user.is_anonymous %}
-                        <a class="nav-link" href="login">Login</a>
+                        <a class="nav-link" href="login">登陆</a>
                     {% else %}
-                        <a class="nav-link" href="logout">Logout</a>
+                        <a class="nav-link" href="logout">登出</a>
                     {% endif %}
                 </li>
             </ul>
@@ -102,14 +126,9 @@
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+                <p class="copyright text-muted">本站总访问量<span id="busuanzi_value_site_pv">次</span></p>
             </div>
         </div>
-    </div>
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Left</button>
-        <button type="button" class="btn btn-default">Middle</button>
-        <button type="button" class="btn btn-default">Right</button>
     </div>
 </footer>
 <!-- Bootstrap core JavaScript -->
@@ -118,5 +137,21 @@
 
 <!-- Custom scripts for this template -->
 <script src="/static/js/clean-blog.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="text/javascript" src="/static/js/GalMenu.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('body').GalMenu({
+            'menu': 'GalDropDown'
+        })
+    });
+</script>
+<script type="text/javascript">var items = document.querySelectorAll('.menuItem');
+for (var i = 0,
+         l = items.length; i < l; i++) {
+    items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+    items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+}</script>
+{% block js %}{% endblock %}
 </body>
 </html>
