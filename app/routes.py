@@ -98,7 +98,7 @@ def newpost():
 @app.route('/postlist')
 def postlist():
     page = request.args.get('page', 1, type=int)
-    userid = request.args.get('user', 0, type=int)
+    userid = request.args.get('id', 0, type=int)
     tagname = request.args.get('tag',type=str)
     if userid:
         posts = Post.query.filter(Post.user_id == userid).order_by(Post.timestamp.desc()).paginate(
