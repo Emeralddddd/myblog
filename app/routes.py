@@ -103,7 +103,7 @@ def postlist():
     if userid:
         posts = Post.query.filter(Post.user_id == userid).order_by(Post.timestamp.desc()).paginate(
             page, app.config['POSTS_PER_PAGE'], False)
-    if tagname:
+    elif tagname:
         tag = Tag.query.filter_by(name=tagname).first()
         posts = tag.post.paginate(
             page, app.config['POSTS_PER_PAGE'], False)
