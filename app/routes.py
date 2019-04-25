@@ -118,7 +118,7 @@ def postlist():
     return render_template('postlist.html', title='postlist', header=header1, posts=posts.items, next_url=next_url,
                            prev_url=prev_url, pager=posts,User=User)
 
-
+@login_required
 @app.route('/myhome')
 def myhome():
     return render_template('myhome.html')
